@@ -1,0 +1,9 @@
+pandas
+scikit-learn
+imbalanced-learn
+nltk
+joblib
+fastapi
+uvicorn
+streamlit
+requests
