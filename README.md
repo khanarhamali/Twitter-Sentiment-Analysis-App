@@ -1,110 +1,80 @@
-# Twitter Sentiment Analysis API 
+# Twitter Sentiment Analysis App 🚀
 
-This project is a **complete end-to-end Machine Learning + API deployment system** for **Twitter Sentiment Analysis**. It covers the full lifecycle starting from data preprocessing and model training to experiment tracking with MLflow and deployment using **FastAPI** on **Render**.
-
----
-
-## Project Overview
-
-The goal of this project is to classify tweet text into **Positive**, **Neutral**, or **Negative** sentiment using traditional Machine Learning models.
-
-### Key Highlights
-
-* Text preprocessing using **NLTK**
-* Model training using **Scikit-learn**
-* Handling class imbalance with **imbalanced-learn**
-* Experiment tracking with **MLflow**
-* REST API using **FastAPI**
-* Cloud deployment on **Render**
-* Model loading from **Dropbox** (no large files in Git)
+A complete **end-to-end Machine Learning project** for Twitter sentiment analysis, covering **data preprocessing, model training, experiment tracking, FastAPI backend, Streamlit frontend, Dockerization, and CI/CD using GitHub Actions**.
 
 ---
 
-## Machine Learning Models Used
+## 📌 Project Overview
 
-The following models were trained and evaluated:
+This project analyzes tweet text and predicts sentiment as:
 
-* **Logistic Regression**
-* **Random Forest Classifier** ✅ (final selected model)
+* **Positive** 😊
+* **Neutral** 😐
+* **Negative** ☹️
 
-### Final Model
-
-* **RandomForest_pipeline.pkl**
-* Selected based on better overall performance (F1-score & accuracy)
-* Saved as a **Scikit-learn Pipeline**
+It is designed following **industry-level MLOps practices**, making it suitable for learning, demonstration, and portfolio purposes.
 
 ---
 
-## Preprocessing Techniques
+## 🧠 Machine Learning Details
 
-Text preprocessing is handled inside `src/preprocess.py` using **NLTK**.
+### 🔹 Model Used
 
-### Steps:
+* **Random Forest Classifier**
+* Trained using **scikit-learn**
+* Full pipeline saved using **joblib** (`RandomForest_pipeline.pkl`)
 
-* Lowercasing text
-* Removing URLs
-* Removing mentions (@user)
-* Removing hashtags
-* Removing punctuation & special characters
+### 🔹 Why Random Forest?
+
+* Handles non-linear relationships well
+* Robust to overfitting
+* Performs well on text-based features
+
+---
+
+## 🔧 Preprocessing Techniques
+
+Text preprocessing is handled in `src/preprocess.py` using **NLTK**:
+
+* Lowercasing
+* URL removal
+* Special character removal
 * Tokenization
 * Stopword removal
 * Lemmatization
 
-These steps ensure clean and normalized input before prediction.
+This ensures clean and consistent input for the ML model.
 
 ---
 
-## Experiment Tracking (MLflow)
+## 🧪 Experiment Tracking (MLflow)
 
-MLflow is used to:
+MLflow is used for:
 
-* Track different model runs
-* Log hyperparameters
-* Log evaluation metrics
-* Save trained models
+* Tracking experiments
+* Logging metrics (accuracy, precision, recall, F1-score)
+* Comparing multiple models
 
-### MLflow Components Used:
-
-* **Experiments**
-* **Runs**
-* **Metrics** (accuracy, precision, recall, F1-score)
-* **Artifacts** (trained models)
-
-MLflow can be run locally using:
-
-```bash
-mlflow ui
-```
+> ⚠️ MLflow is used locally for experimentation and is **not required during deployment**.
 
 ---
 
-## API Layer (FastAPI)
+## ⚙️ Backend (FastAPI)
 
-The trained model is exposed as a REST API using **FastAPI**.
+### 🔹 Features
 
-### Endpoints
+* High-performance REST API
+* Automatic Swagger documentation
+* JSON-based input/output
 
-#### Root Endpoint
+### 🔹 Endpoints
 
-```http
-GET /
-```
+| Method | Endpoint   | Description             |
+| ------ | ---------- | ----------------------- |
+| GET    | `/`        | Health check            |
+| POST   | `/predict` | Predict tweet sentiment |
 
-Response:
-
-```json
-{
-  "status": "Twitter Sentiment API is running"
-}
-```
-
-#### Prediction Endpoint
-
-```http
-POST /predict
-```
-
-Request Body:
+Example request:
 
 ```json
 {
@@ -112,154 +82,154 @@ Request Body:
 }
 ```
 
-Response:
+---
 
-```json
-{
-  "sentiment": 1,
-  "label": "Positive"
-}
-```
+## 🎨 Frontend (Streamlit)
 
-### Sentiment Mapping
-
-| Model Output | Sentiment |
-| ------------ | --------- |
-| -1           | Negative  |
-| 0            | Neutral   |
-| 1            | Positive  |
+* Simple UI for user interaction
+* Sends requests to FastAPI backend
+* Displays sentiment result in real-time
 
 ---
 
-## 🛠️ Tools & Technologies Used
+## 🗂 Project Folder Structure
 
-* **Python 3.10**
-* **VS Code** (development environment)
-* **Scikit-learn** (ML models & pipelines)
-* **NLTK** (text preprocessing)
-* **imbalanced-learn** (class imbalance handling)
-* **MLflow** (experiment tracking)
-* **FastAPI** (API development)
-* **Uvicorn** (ASGI server)
-* **Dropbox** (model hosting)
-* **Render** (deployment)
-
----
-
-## Project Structure
-
-```
-project-root/
+```text
+TwitterSentimentVSCode/
 │
 ├── src/
-│   ├── app.py              # FastAPI app
+│   ├── app.py              # FastAPI backend
 │   ├── preprocess.py       # Text preprocessing
-│   ├── train_models.py     # Model training
-│   ├── predict.py          # Prediction logic
+│   ├── train_models.py     # Model training logic
+│   ├── predict.py          # Prediction helper
 │
-├── models/                 # Model downloaded at runtime
-├── requirements.txt        # Python dependencies
-├── runtime.txt             # Python version (3.10)
+├── models/                 # Model folder (ignored in Git)
+│
+├── frontend/
+│   └── streamlit_app.py    # Streamlit UI
+│
+├── .github/
+│   └── workflows/
+│       └── docker-ci.yml   # CI/CD pipeline
+│
+├── Dockerfile
+├── requirements.txt
 ├── .gitignore
-└── README.md
+├── README.md
+└── main.py
 ```
 
 ---
 
-## Installation & Setup (Local)
+## ▶️ How to Run Locally
 
-### 1️. Clone Repository
+### 1️⃣ Clone Repository
 
 ```bash
-git clone <your-repo-url>
-cd project-root
+git clone https://github.com/khanarhamali/Twitter-Sentiment-Analysis-App.git
+cd Twitter-Sentiment-Analysis-App
 ```
 
-### 2️. Create Virtual Environment
+### 2️⃣ Create Virtual Environment
 
 ```bash
 python -m venv venv
-source venv/bin/activate   # Linux / Mac
-venv\Scripts\activate      # Windows
+venv\Scripts\activate   # Windows
+# source venv/bin/activate  # Linux/Mac
 ```
 
-### 3️. Install Dependencies
+### 3️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4️. Download NLTK Resources
-
-```bash
-python -m nltk.downloader punkt stopwords wordnet
-```
-
----
-
-##  Run the Project
-
-### Run FastAPI App Locally
+### 4️⃣ Run FastAPI Backend
 
 ```bash
 uvicorn src.app:app --reload
 ```
 
-Open browser:
-
-```
-http://127.0.0.1:8000
-```
-
-Swagger Docs:
+Swagger UI:
 
 ```
 http://127.0.0.1:8000/docs
 ```
 
----
+### 5️⃣ Run Streamlit Frontend
 
-## Deployment (Render)
-
-* Model file is **not pushed to GitHub**
-* Model is downloaded automatically from **Dropbox** at runtime
-
-### Start Command (Render)
-
-```
-uvicorn src.app:app --host 0.0.0.0 --port $PORT
-```
-
-### Build Command
-
-```
-pip install -r requirements.txt
-python -m nltk.downloader punkt stopwords wordnet
+```bash
+streamlit run frontend/streamlit_app.py
 ```
 
 ---
 
-## ✅ Key Design Decisions
+## 🐳 Docker Support
 
-* ❌ No large `.pkl` files in GitHub
-* ✅ Cloud-friendly model loading
-* ✅ Reproducible ML experiments with MLflow
-* ✅ Clean ML pipeline architecture
-* ✅ Production-ready API
+### Build Docker Image
 
----
+```bash
+docker build -t khanarhamali/twitter-sentiment-app .
+```
 
-## Future Improvements
+### Run Docker Container
 
-* Add Docker support
-* Add CI/CD pipeline
-* Add authentication to API
-* Add batch prediction endpoint
-* Add monitoring & logging
+```bash
+docker run -p 8000:8000 khanarhamali/twitter-sentiment-app
+```
 
 ---
 
-## Author
+## 🔁 CI/CD Pipeline (GitHub Actions)
+
+This project includes a **CI/CD pipeline** that:
+
+* Triggers on push to `main`
+* Builds Docker image
+* Logs in to Docker Hub
+* Pushes image automatically
+
+### 📁 Workflow Location
+
+```
+.github/workflows/docker-ci.yml
+```
+
+---
+
+## 🔐 Environment Variables
+
+| Variable    | Description                           |
+| ----------- | ------------------------------------- |
+| `MODEL_URL` | Public URL of trained model (Dropbox) |
+| `PORT`      | Auto-set by Render                    |
+
+---
+
+## ☁️ Deployment
+
+* Backend deployed on **Render**
+* Model downloaded at runtime from **Dropbox**
+* No large files stored in GitHub
+
+---
+
+## 🛠 Tools & Technologies
+
+* Python
+* Scikit-learn
+* FastAPI
+* Streamlit
+* MLflow
+* Docker
+* GitHub Actions (CI/CD)
+* Render
+* Dropbox (model hosting)
+* VS Code
+
+---
+
+## 👨‍💻 Author
 
 **Arham Ali Khan**
-Machine Learning | Data Science | MLOps
+Machine Learning & Data Science Enthusiast
